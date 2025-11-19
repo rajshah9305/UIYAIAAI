@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="cursor-none">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,11 +32,8 @@
                         'fluid-body': "clamp(1rem, 2.5vw, 1.1rem)",
                         'fluid-small': "clamp(0.875rem, 2vw, 1rem)",
                     },
-                    cursor: {
-                        'none': 'none',
-                    },
                     animation: {
-                        'spin-slow': 'spin 10s linear infinite',
+                        'spin-slow': 'spin 12s linear infinite',
                     }
                 }
             }
@@ -44,34 +41,39 @@
     </script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="selection:bg-earth-terra selection:text-white">
-    <!-- Menu Overlay -->
+<body class="bg-earth-cream text-earth-loam selection:bg-earth-terra selection:text-white overflow-x-hidden">
+    
+    <div id="cursor" class="fixed top-0 left-0 w-4 h-4 bg-earth-terra rounded-full pointer-events-none z-[100] mix-blend-difference transition-transform duration-100 ease-out hidden lg:block"></div>
+    <div id="cursor-follower" class="fixed top-0 left-0 w-12 h-12 border border-earth-terra rounded-full pointer-events-none z-[99] transition-transform duration-300 ease-out hidden lg:block"></div>
+
     <div id="menu-overlay" class="fixed top-0 left-0 w-full h-screen bg-earth-cream z-[60] flex items-center justify-center transition-transform duration-700 ease-in-out">
         <div class="text-center">
-            <a href="#manifesto" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors mb-8 menu-link">Manifesto</a>
-            <a href="#projects" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors mb-8 menu-link">Projects</a>
-            <a href="#contact" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors menu-link">Contact</a>
+            <a href="#manifesto" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors mb-8 menu-link hover-trigger" data-cursor-text="Read">Manifesto</a>
+            <a href="#projects" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors mb-8 menu-link hover-trigger" data-cursor-text="View">Projects</a>
+            <a href="#archive" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors mb-8 menu-link hover-trigger" data-cursor-text="List">Archive</a>
+            <a href="#process" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors mb-8 menu-link hover-trigger" data-cursor-text="How">Process</a>
+            <a href="#contact" class="block font-serif text-fluid-h1 text-earth-loam hover:text-earth-terra transition-colors menu-link hover-trigger" data-cursor-text="Talk">Contact</a>
         </div>
     </div>
-    <!-- Noise Overlay -->
+
     <div class="noise-overlay"></div>
-    <!-- Fixed Navigation Dock (Left Side) -->
-    <nav class="fixed left-0 top-0 h-full w-16 border-r border-earth-loam/10 z-50 flex flex-col justify-between items-center py-8 bg-earth-cream/80 backdrop-blur-sm">
+
+    <nav class="fixed left-0 top-0 h-full w-12 lg:w-16 border-r border-earth-loam/10 z-50 flex flex-col justify-between items-center py-8 bg-earth-cream/80 backdrop-blur-sm">
         <div class="h-12 w-0.5 bg-earth-terra"></div>
         
         <div class="flex flex-col gap-12 items-center">
-            <a href="#manifesto" class="nav-dock text-xs font-bold tracking-widest hover:text-earth-terra transition-colors">MANIFESTO</a>
-            <a href="#projects" class="nav-dock text-xs font-bold tracking-widest hover:text-earth-terra transition-colors">PROJECTS</a>
-            <a href="#contact" class="nav-dock text-xs font-bold tracking-widest hover:text-earth-terra transition-colors">CONTACT</a>
+            <a href="#manifesto" class="nav-dock text-[10px] lg:text-xs font-bold tracking-widest hover:text-earth-terra transition-colors">MANIFESTO</a>
+            <a href="#projects" class="nav-dock text-[10px] lg:text-xs font-bold tracking-widest hover:text-earth-terra transition-colors">PROJECTS</a>
+            <a href="#contact" class="nav-dock text-[10px] lg:text-xs font-bold tracking-widest hover:text-earth-terra transition-colors">CONTACT</a>
         </div>
-        <div class="text-xs font-bold">
+        <div class="text-[10px] lg:text-xs font-bold">
             <span id="clock">00:00</span>
         </div>
     </nav>
-    <!-- Floating Action Button (Bottom Right) -->
+
     <div class="fixed bottom-8 right-8 z-50">
-        <button class="w-16 h-16 rounded-none bg-earth-loam text-earth-cream flex items-center justify-center hover:bg-earth-terra transition-colors duration-500 cursor-link group overflow-hidden relative">
-            <span class="relative z-10 group-hover:-translate-y-10 transition-transform duration-300">MENU</span>
+        <button class="w-16 h-16 bg-earth-loam text-earth-cream flex items-center justify-center hover:bg-earth-terra transition-colors duration-500 cursor-none hover-trigger group overflow-hidden relative" data-cursor-scale="2">
+            <span class="relative z-10 group-hover:-translate-y-10 transition-transform duration-300 font-mono text-xs">MENU</span>
             <span class="absolute top-full left-0 w-full h-full flex items-center justify-center group-hover:-translate-y-full transition-transform duration-300 bg-earth-terra">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M7 17L17 7M17 7H7M17 7V17" />
@@ -79,14 +81,12 @@
             </span>
         </button>
     </div>
-    <!-- Main Content -->
-    <main class="pl-16">
-        <!-- Hero Section: Asymmetrical Split -->
+
+    <main class="pl-12 lg:pl-16">
         <section class="hero-section relative min-h-screen w-full flex flex-col lg:flex-row overflow-hidden">
-            <!-- Left: Typography -->
-            <div class="w-full lg:w-7/12 h-screen flex flex-col justify-between p-12 lg:p-20 border-b lg:border-b-0 lg:border-r border-earth-loam/10 relative z-10">
+            <div class="w-full lg:w-7/12 h-screen flex flex-col justify-between p-8 lg:p-20 border-b lg:border-b-0 lg:border-r border-earth-loam/10 relative z-10">
                 <div class="line-wrapper">
-                    <h2 class="line-inner text-earth-terra font-mono text-fluid-small tracking-[0.3em] uppercase mb-4">Spatial Revolution</h2>
+                    <h2 class="line-inner text-earth-terra font-mono text-xs lg:text-sm tracking-[0.3em] uppercase mb-4">Spatial Revolution</h2>
                 </div>
                 
                 <h1 class="font-serif text-fluid-display leading-[0.85] text-earth-loam mix-blend-darken">
@@ -101,16 +101,16 @@
                         </span>
                     </p>
                     <div class="hidden lg:block animate-spin-slow">
-                        <svg width="60" height="60" viewBox="0 0 100 100" fill="none">
+                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
                             <path d="M50 0L50 100M0 50L100 50M15 15L85 85M85 15L15 85" stroke="#E2725B" stroke-width="1"/>
+                            <circle cx="50" cy="50" r="48" stroke="#1C2119" stroke-width="0.5" stroke-dasharray="4 4"/>
                         </svg>
                     </div>
                 </div>
             </div>
-            <!-- Right: Image Slice -->
-            <div class="w-full lg:w-5/12 h-[50vh] lg:h-screen bg-earth-sand relative overflow-hidden group">
+            <div class="w-full lg:w-5/12 h-[50vh] lg:h-screen bg-earth-sand relative overflow-hidden group hover-trigger" data-cursor-text="Explore">
                 <div class="absolute inset-0 bg-earth-loam/10 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                <img id="hero-image" src="hero.png" 
+                <img id="hero-image" src="hero.jpg" 
                      alt="Abstract Architecture" 
                      class="absolute inset-0 w-full h-full object-cover img-hover-scale grayscale group-hover:grayscale-0">
                 
@@ -119,7 +119,7 @@
                 </div>
             </div>
         </section>
-        <!-- Manifesto Section: Diagonal Layout -->
+
         <section id="manifesto" class="relative py-32 bg-earth-loam text-earth-cream diagonal-slice -mt-20 z-20">
             <div class="container mx-auto px-8 lg:px-16">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -134,7 +134,7 @@
                     </div>
                     <div class="lg:col-span-8">
                         <p class="font-serif text-fluid-h2 leading-tight lg:indent-20 opacity-90">
-                            "Standardization is the <span class="text-earth-terra italic">death of aura</span>. We do not build websites; we construct explorable ruins, digital gardens, and brutalist monuments."
+                            "Standardization is the <span class="text-earth-terra italic hover-trigger" data-cursor-scale="1.5">death of aura</span>. We do not build websites; we construct explorable ruins, digital gardens, and brutalist monuments."
                         </p>
                         <div class="mt-16 flex gap-8">
                             <div class="w-4 h-4 bg-earth-sage rounded-full"></div>
@@ -145,17 +145,17 @@
                 </div>
             </div>
         </section>
-        <!-- Horizontal Scroll / Scattered Gallery -->
+
         <section id="projects" class="py-32 bg-earth-cream overflow-hidden relative">
             <div class="absolute top-20 right-20 font-mono text-[12vw] text-earth-loam/5 pointer-events-none select-none">
                 WORK
             </div>
-            <!-- Project 1: Offset Left -->
+            
             <div class="container mx-auto px-8 mb-32 relative">
                 <div class="flex flex-col lg:flex-row items-center gap-12 lg:translate-x-12">
-                    <div class="w-full lg:w-1/2 aspect-[4/5] overflow-hidden relative img-container">
-                        <img src="echo chamber.png" 
-                             class="w-full h-full object-cover img-hover-scale" alt="Project 1">
+                    <div class="w-full lg:w-1/2 aspect-[4/5] overflow-hidden relative img-container hover-trigger" data-cursor-text="View Case">
+                        <img src="echo chamber.jpg" 
+                             class="w-full h-full object-cover img-hover-scale" alt="Velvet Concrete">
                         <div class="absolute top-4 right-4 bg-earth-terra text-earth-cream px-3 py-1 font-mono text-xs uppercase">Case 01</div>
                     </div>
                     <div class="w-full lg:w-1/3 space-y-6">
@@ -169,12 +169,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Project 2: Offset Right with different dimensions -->
+
             <div class="container mx-auto px-8 mb-32 relative">
                 <div class="flex flex-col lg:flex-row-reverse items-end gap-12 lg:-translate-x-12">
-                    <div class="w-full lg:w-2/3 aspect-video overflow-hidden relative img-container">
-                        <img src="project 2 .png" 
-                             class="w-full h-full object-cover img-hover-scale" alt="Project 2">
+                    <div class="w-full lg:w-2/3 aspect-video overflow-hidden relative img-container hover-trigger" data-cursor-text="Listen">
+                        <img src="project 2 .jpg" 
+                             class="w-full h-full object-cover img-hover-scale" alt="Echo Chamber">
                         <div class="absolute bottom-4 left-4 bg-earth-loam text-earth-cream px-3 py-1 font-mono text-xs uppercase">Case 02</div>
                     </div>
                     <div class="w-full lg:w-1/4 space-y-6 text-right">
@@ -188,8 +188,8 @@
                     </div>
                 </div>
             </div>
-            <!-- Marquee Strip -->
-            <div class="w-full bg-earth-sage py-6 transform -rotate-1 my-20 border-y border-earth-loam">
+
+            <div class="w-full bg-earth-sage py-6 transform -rotate-1 my-20 border-y border-earth-loam hover-trigger" data-cursor-scale="0.5">
                 <div class="h-scroll-wrapper">
                     <div class="marquee-content font-mono text-fluid-h2 text-earth-loam font-bold">
                         DIGITAL BRUTALISM — ORGANIC SYSTEMS — REJECT TRADITION — EMBRACE ENTROPY — DIGITAL BRUTALISM — ORGANIC SYSTEMS — REJECT TRADITION — EMBRACE ENTROPY —
@@ -197,14 +197,52 @@
                 </div>
             </div>
         </section>
-        <!-- Interactive "Services" List -->
+
+        <section id="archive" class="py-20 px-8 lg:px-16 bg-earth-cream border-b border-earth-loam/10">
+            <div class="container mx-auto">
+                <div class="flex justify-between items-end mb-12">
+                    <h2 class="font-serif text-fluid-h3 text-earth-loam">Selected Archive</h2>
+                    <span class="font-mono text-xs text-earth-terra uppercase tracking-widest">[ 2020 — 2024 ]</span>
+                </div>
+
+                <div class="w-full border-t border-earth-loam">
+                    <div class="grid grid-cols-12 gap-4 py-4 border-b border-earth-loam/20 font-mono text-xs uppercase tracking-widest text-earth-loam/50">
+                        <div class="col-span-2">Year</div>
+                        <div class="col-span-5">Project</div>
+                        <div class="col-span-3">Type</div>
+                        <div class="col-span-2 text-right">Loc</div>
+                    </div>
+                    
+                    <div class="grid grid-cols-12 gap-4 py-6 border-b border-earth-loam/10 group hover:bg-earth-sand/20 transition-colors cursor-pointer hover-trigger" data-cursor-text="View">
+                        <div class="col-span-2 font-mono text-earth-sage">2024</div>
+                        <div class="col-span-5 font-serif text-xl lg:text-2xl italic text-earth-loam group-hover:translate-x-2 transition-transform">Mono-No-Aware</div>
+                        <div class="col-span-3 font-mono text-sm opacity-60">E-Commerce</div>
+                        <div class="col-span-2 text-right font-mono text-sm opacity-60">JP</div>
+                    </div>
+                    
+                    <div class="grid grid-cols-12 gap-4 py-6 border-b border-earth-loam/10 group hover:bg-earth-sand/20 transition-colors cursor-pointer hover-trigger" data-cursor-text="View">
+                        <div class="col-span-2 font-mono text-earth-sage">2023</div>
+                        <div class="col-span-5 font-serif text-xl lg:text-2xl italic text-earth-loam group-hover:translate-x-2 transition-transform">Void / Structure</div>
+                        <div class="col-span-3 font-mono text-sm opacity-60">Installation</div>
+                        <div class="col-span-2 text-right font-mono text-sm opacity-60">DE</div>
+                    </div>
+                    
+                    <div class="grid grid-cols-12 gap-4 py-6 border-b border-earth-loam/10 group hover:bg-earth-sand/20 transition-colors cursor-pointer hover-trigger" data-cursor-text="View">
+                        <div class="col-span-2 font-mono text-earth-sage">2022</div>
+                        <div class="col-span-5 font-serif text-xl lg:text-2xl italic text-earth-loam group-hover:translate-x-2 transition-transform">Oculus Form</div>
+                        <div class="col-span-3 font-mono text-sm opacity-60">Identity</div>
+                        <div class="col-span-2 text-right font-mono text-sm opacity-60">UK</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="py-20 px-8 lg:px-16 min-h-screen flex flex-col justify-center bg-earth-cream relative z-10">
             <div class="absolute top-0 right-0 w-1/3 h-full bg-earth-sand/20 -z-10"></div>
             
             <h2 class="font-mono text-xs tracking-widest mb-12 text-earth-terra uppercase">Capabilities</h2>
             <div class="space-y-0">
-                <!-- Item 1 -->
-                <div class="group border-t border-earth-loam/20 py-12 relative transition-all duration-500 hover:py-20">
+                <div class="group border-t border-earth-loam/20 py-12 relative transition-all duration-500 hover:py-20 hover-trigger" data-cursor-text="Explore">
                     <div class="absolute inset-0 bg-earth-terra transform scale-y-0 origin-top transition-transform duration-500 group-hover:scale-y-100 -z-10"></div>
                     
                     <div class="flex justify-between items-baseline relative z-10 group-hover:px-8 transition-all duration-500">
@@ -213,13 +251,11 @@
                         <span class="hidden lg:block font-mono text-xs group-hover:text-earth-cream uppercase">[ Visual ]</span>
                     </div>
                     
-                    <!-- Hover Reveal Image (Float) -->
-                    <div class="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 rotate-6">
-                         <img src="image4.png" class="w-full h-full object-cover border border-earth-cream">
+                    <div class="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-56 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20 rotate-6 grayscale contrast-125">
+                         <img src="image4.jpg" class="w-full h-full object-cover border-2 border-earth-cream">
                     </div>
                 </div>
-                <!-- Item 2 -->
-                <div class="group border-t border-earth-loam/20 py-12 relative transition-all duration-500 hover:py-20">
+                <div class="group border-t border-earth-loam/20 py-12 relative transition-all duration-500 hover:py-20 hover-trigger" data-cursor-text="Dev">
                     <div class="absolute inset-0 bg-earth-sage transform scale-y-0 origin-bottom transition-transform duration-500 group-hover:scale-y-100 -z-10"></div>
                     
                     <div class="flex justify-between items-baseline relative z-10 group-hover:px-8 transition-all duration-500">
@@ -228,8 +264,7 @@
                         <span class="hidden lg:block font-mono text-xs group-hover:text-earth-cream uppercase">[ Code ]</span>
                     </div>
                 </div>
-                <!-- Item 3 -->
-                <div class="group border-t border-b border-earth-loam/20 py-12 relative transition-all duration-500 hover:py-20">
+                <div class="group border-t border-b border-earth-loam/20 py-12 relative transition-all duration-500 hover:py-20 hover-trigger" data-cursor-text="Growth">
                     <div class="absolute inset-0 bg-earth-loam transform scale-x-0 origin-left transition-transform duration-500 group-hover:scale-x-100 -z-10"></div>
                     
                     <div class="flex justify-between items-baseline relative z-10 group-hover:px-8 transition-all duration-500">
@@ -240,9 +275,40 @@
                 </div>
             </div>
         </section>
-        <!-- Footer / Contact Area -->
+
+        <section id="process" class="py-32 px-8 lg:px-16 bg-earth-cream relative">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="font-mono text-xs tracking-widest text-earth-terra uppercase">Our Process</h2>
+                    <p class="font-serif text-fluid-h2 mt-4 max-w-3xl mx-auto">From Void to Form</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center process-step">
+                    <div class="process-step-item hover-trigger" data-cursor-scale="1.2">
+                        <div class="mb-4 text-earth-terra">
+                            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L16.732 3.732z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-fluid-h3 mb-2">01. Discovery</h3>
+                        <p class="font-mono text-fluid-body text-earth-loam/70">We begin with a deep dive into your vision, exploring the conceptual and philosophical underpinnings of the project.</p>
+                    </div>
+                    <div class="process-step-item hover-trigger" data-cursor-scale="1.2">
+                        <div class="mb-4 text-earth-terra">
+                            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-fluid-h3 mb-2">02. Creation</h3>
+                        <p class="font-mono text-fluid-body text-earth-loam/70">Our team crafts the digital space, focusing on creating an immersive and intuitive experience that transcends the screen.</p>
+                    </div>
+                    <div class="process-step-item hover-trigger" data-cursor-scale="1.2">
+                        <div class="mb-4 text-earth-terra">
+                            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </div>
+                        <h3 class="font-serif text-fluid-h3 mb-2">03. Launch</h3>
+                        <p class="font-mono text-fluid-body text-earth-loam/70">We deploy the final project, ensuring it's optimized for performance and ready to make a lasting impact.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="contact" class="min-h-[80vh] bg-earth-loam text-earth-cream flex flex-col justify-between p-8 lg:p-16 relative overflow-hidden">
-            <!-- Background Graphic -->
             <div class="absolute right-0 bottom-0 w-full h-full opacity-10 pointer-events-none">
                 <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
                     <path d="M0 100 C 20 0 50 0 100 100 Z" fill="#E2725B" />
@@ -252,7 +318,7 @@
                 <p class="font-mono text-earth-terra max-w-md text-fluid-body">
                     We are selective. We accept 3 projects per solar cycle.
                 </p>
-                <a href="mailto:hello@kairos.arch" class="font-serif text-[10vw] leading-none hover:text-earth-sage transition-colors">
+                <a href="mailto:hello@kairos.arch" class="font-serif text-[10vw] leading-none hover:text-earth-sage transition-colors hover-trigger" data-cursor-text="Email Us">
                     hello@kairos
                 </a>
             </div>
@@ -265,9 +331,9 @@
                 <div>
                     <h4 class="font-mono text-xs text-earth-terra mb-4 uppercase">Social</h4>
                     <ul class="space-y-2 font-mono text-sm opacity-60">
-                        <li><a href="#" class="hover:text-white">Instagram</a></li>
-                        <li><a href="#" class="hover:text-white">Are.na</a></li>
-                        <li><a href="#" class="hover:text-white">Read.cv</a></li>
+                        <li><a href="#" class="hover:text-white hover-trigger">Instagram</a></li>
+                        <li><a href="#" class="hover:text-white hover-trigger">Are.na</a></li>
+                        <li><a href="#" class="hover:text-white hover-trigger">Read.cv</a></li>
                     </ul>
                 </div>
                 <div class="col-span-2 text-right self-end">
@@ -279,6 +345,7 @@
             </div>
         </section>
     </main>
+    
     <script src="https://unpkg.com/lenis@1.0.45/dist/lenis.min.js"></script>
     <script src="script.js"></script>
 </body>
