@@ -6,6 +6,26 @@ body {
     font-family: 'Space Grotesk', monospace;
     font-size: clamp(1rem, 2.5vw, 1.1rem);
     line-height: 1.6;
+    /* Hide default cursor on large screens */
+    cursor: none;
+}
+
+@media (max-width: 1024px) {
+    body { cursor: auto; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #F4F1EA;
+}
+::-webkit-scrollbar-thumb {
+    background: #1C2119;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #E2725B;
 }
 
 h1, h2, h3 {
@@ -26,13 +46,9 @@ p {
 /* Base styling for links */
 a {
     transition: color 0.3s ease;
+    cursor: none; /* Ensure links don't show pointer */
 }
 
-/* Remove default link styles where not needed */
-a.unstyled {
-    text-decoration: none;
-    color: inherit;
-}
 /* Noise Texture Overlay */
 .noise-overlay {
     position: fixed;
@@ -45,6 +61,7 @@ a.unstyled {
     opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
+
 /* Scroll Typography Effects */
 .reveal-text {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
@@ -62,10 +79,12 @@ a.unstyled {
 .in-view .line-inner {
     transform: translateY(0);
 }
+
 /* Diagonal Sections */
 .diagonal-slice {
     clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
 }
+
 /* Horizontal Scroll Container */
 .h-scroll-wrapper {
     overflow-x: hidden;
@@ -80,7 +99,8 @@ a.unstyled {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
-/* Image Hover Distortion - Minimal CSS approach */
+
+/* Image Hover Distortion */
 .img-hover-scale {
     transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.5s;
 }
@@ -88,11 +108,13 @@ a.unstyled {
     transform: scale(1.1) rotate(-2deg);
     filter: contrast(120%);
 }
+
 /* Navigation Dock */
 .nav-dock {
     writing-mode: vertical-rl;
     transform: rotate(180deg);
 }
+
 /* Smooth Scroll container */
 html.lenis {
     height: auto;
@@ -114,4 +136,28 @@ html.lenis {
 
 #menu-overlay.open {
     transform: translateY(0);
+}
+
+/* Process Section */
+.process-step-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.process-step-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Cursor Styles */
+.hover-active #cursor {
+    transform: scale(0.5);
+    background-color: #E2725B;
+}
+
+.hover-active #cursor-follower {
+    transform: scale(1.5);
+    background-color: rgba(226, 114, 91, 0.1);
+    border-color: transparent;
 }
